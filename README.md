@@ -35,9 +35,9 @@ fun main(args: Array<String>) {
 
 ## API
 
-* [access(path, mode, callback)][access]
-* [chmod(path, mode, callback)][chmod]
-* [chown(path, uid, gid, callback)][chown]
+* [access(path, mode, callback)](#access)
+* [chmod(path, mode, callback)](#chmod)
+* [chown(path, uid, gid, callback)](#chown)
 
 ### `access(path: String, mode: Long = F_OK, callback: (Error?) -> Unit?)`
 <a name="access" />
