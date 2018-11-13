@@ -35,11 +35,13 @@ fun main(args: Array<String>) {
 
 ## API
 
+* [access(path, mode, callback)][access]
+
 ### `access(path: String, mode: Long = F_OK, callback: (Error?) -> Unit?)`
+<a name="access" />
 
 Test user permissions for a file specified at `path` and `mode` calling
 `callback` with an `Error` if one errors.
-
 
 ```kotlin
 datkt.fs.access("/home") { err ->
