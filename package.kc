@@ -1,0 +1,3 @@
+require[] = "./lib"
+library = "fs"
+repo = "@datkt/fs"

@@ -1,0 +1,30 @@
+{
+  "name": "@datkt/fs",
+  "version": "0.0.1",
+  "description": "Async file system access built on libuv",
+  "main": "index.kt",
+  "scripts": {
+    "build": "npm run build-constants && npm run build-library",
+    "build-constants": "cinterop -def constants.def -o constants",
+    "build-library": "konanc *.kt $(konanc-config -clr lib.kc) -p library -o fs",
+    "postinstall": "npm run build",
+    "test": "konanc test/ $(konanc-config -clr test.kc) -o test.kexe && ./test.kexe"
+  },
+  "keywords": [
+    "datkt",
+    "fs",
+    "dat",
+    "filesytem",
+    "kotlin",
+    "native",
+    "konan"
+  ],
+  "author": "Joseph Werle <werle@littlstar.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@datkt/uv": "^0.5.2"
+  },
+  "devDependencies": {
+    "@datkt/tape": "^0.6.1"
+  }
+}
