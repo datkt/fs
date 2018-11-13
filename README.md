@@ -37,6 +37,7 @@ fun main(args: Array<String>) {
 
 * [access(path, mode, callback)][access]
 * [chmod(path, mode, callback)][chmod]
+* [chown(path, uid, gid, callback)][chown]
 
 ### `access(path: String, mode: Long = F_OK, callback: (Error?) -> Unit?)`
 <a name="access" />
@@ -59,15 +60,32 @@ Change user permissions of a file specified at `path` and `mode` calling
 `callback` with an `Error` if one occurs.
 
 ```kotlin
+// make read, write, execute permissions for everyone
 val mode = (
   S_IRUSR or S_IWUSR or S_IXUSR or
   S_IRGRP or S_IWGRP or S_IXGRP or
   S_IROTH or S_IWOTH or S_IXOTH
 )
 
+// modify program permissions
 chmod("/home/program", mode) { err ->
   if (null != err) {
-    println("Something changing program permissions: ${err.message}")
+    println("Something went wrong changing program permissions: ${err.message}")
+  }
+}
+```
+
+### `chown(path: String, uid: Long, gid: Long, callback: (Error?) -> Any?)`
+<a name="chown" />
+
+Change user and group ownership of a file specified at `path` for user
+id `uid`, and group id `gid` calling `callback` with an `Error`, if one
+occurs.
+
+```kotlin
+chown("/home/file", 1000, 10) { err ->
+  if (null != err) {
+    println("Something went wrong changing file ownership: ${err.message}")
   }
 }
 ```

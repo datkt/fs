@@ -2,13 +2,15 @@ package datkt.fs.test
 
 import datkt.tape.test
 
-fun chmod() {
+private const val FILENAME = "test.kexe"
+
+fun chmod(argv: Array<String>) {
   test("chmod(path: String, mode: Long, callback: (Error?) -> Any?)") { t ->
     var i = 0
     fun testMode(name: String, mode: Long) {
       i++
-      datkt.fs.chmod("test.kexe", mode) { err ->
-        t.equal(err, null, "Setting 'test.kexe' permission '${name}'")
+      datkt.fs.chmod(FILENAME, mode) { err ->
+        t.equal(err, null, "Setting '${FILENAME}' permission '${name}'")
 
         if (0 == --i) {
           t.end(err)
@@ -90,7 +92,7 @@ fun chmod() {
       "S_IWOTH | S_IXOTH",
       datkt.fs.S_IRUSR or
       datkt.fs.S_IWUSR or
-      datkt.fs.S_IXOTH or
+      datkt.fs.S_IXUSR or
       datkt.fs.S_IRGRP or
       datkt.fs.S_IWGRP or
       datkt.fs.S_IXGRP or

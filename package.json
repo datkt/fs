@@ -7,7 +7,7 @@
     "build-constants": "cinterop -def constants.def -o constants",
     "build-library": "konanc *.kt $(konanc-config -clr lib.kc) -p library -o fs",
     "postinstall": "npm run build",
-    "test": "konanc test/ $(konanc-config -clr test.kc) -o test.kexe && ./test.kexe"
+    "test": "konanc test/ $(konanc-config -clr test.kc) -o test.kexe && ./test.kexe $(id -u) $(id -G | awk '{print $2}')"
   },
   "keywords": [
     "datkt",

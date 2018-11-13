@@ -2,7 +2,7 @@ package datkt.fs.test
 
 import datkt.tape.test
 
-fun constants() {
+fun constants(argv: Array<String>) {
   test("datkt.fs.constants") { t ->
     t.ok(datkt.fs.F_OK >= -1, "F_OK")
     t.ok(datkt.fs.R_OK >= -1, "R_OK")

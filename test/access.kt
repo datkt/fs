@@ -2,7 +2,7 @@ package datkt.fs.test
 
 import datkt.tape.test
 
-fun access() {
+fun access(argv: Array<String>) {
   test("access(path: String, mode: Int, callback: (Error?) -> Any?)") { t ->
     datkt.fs.access(".", fun (err: Error?) {
       t.equal(err, null, "default (F_OK) for './' file path")
