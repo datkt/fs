@@ -2,7 +2,6 @@
   "name": "@datkt/fs",
   "version": "0.0.1",
   "description": "Async file system access built on libuv",
-  "main": "index.kt",
   "scripts": {
     "build": "npm run build-constants && npm run build-library",
     "build-constants": "cinterop -def constants.def -o constants",
