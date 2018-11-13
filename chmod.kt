@@ -12,26 +12,22 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.ptr
 
 import datkt.uv.uv_fs_req_cleanup
-import datkt.uv.uv_fs_access
+import datkt.uv.uv_fs_chmod
 import datkt.uv.uv_fs_t
 
-fun access(path: String, callback: (Error?) -> Any?) {
-  return access(path, F_OK, callback)
-}
-
-fun access(path: String, mode: Long = F_OK, callback: (Error?) -> Any?) {
+fun chmod(path: String, mode: Long, callback: (Error?) -> Any?) {
   val ref = StableRef.create(callback)
   val req = nativeHeap.alloc<uv_fs_t>()
   req.data = ref.asCPointer()
-  uv_fs_access(
+  uv_fs_chmod(
     datkt.fs.loop.default,
     (req as CStructVar).ptr as CValuesRef<uv_fs_t>,
     path,
     mode.toInt(),
-    staticCFunction(::onaccess))
+    staticCFunction(::onchmod))
 }
 
-private fun onaccess(req: CPointer<uv_fs_t>?) {
+private fun onchmod(req: CPointer<uv_fs_t>?) {
   uv_fs_req_cleanup(req)
 
   val fs: uv_fs_t? = req?.pointed
