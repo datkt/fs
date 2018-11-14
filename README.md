@@ -38,6 +38,8 @@ fun main(args: Array<String>) {
 * [access(path, mode, callback)](#access)
 * [chmod(path, mode, callback)](#chmod)
 * [chown(path, uid, gid, callback)](#chown)
+* [link(source, path, callback)](#link)
+* [symlink(source, path, type, callback)](#symlink)
 
 ### `access(path: String, mode: Long = F_OK, callback: (Error?) -> Unit?)`
 <a name="access" />
@@ -53,7 +55,7 @@ access("/home") { err ->
 }
 ```
 
-### `chmod(path: String, mode: Long, callback: (Error?) -> Any?)`
+### `chmod(path: String, mode: Long, callback: Callback)`
 <a name="chmod" />
 
 Change user permissions of a file specified at `path` and `mode` calling
@@ -75,7 +77,7 @@ chmod("/home/program", mode) { err ->
 }
 ```
 
-### `chown(path: String, uid: Long, gid: Long, callback: (Error?) -> Any?)`
+### `chown(path: String, uid: Long, gid: Long, callback: Callback)`
 <a name="chown" />
 
 Change user and group ownership of a file specified at `path` for user
@@ -86,6 +88,31 @@ occurs.
 chown("/home/file", 1000, 10) { err ->
   if (null != err) {
     println("Something went wrong changing file ownership: ${err.message}")
+  }
+}
+```
+
+### `link(source: String, path: String, callback: Callback)`
+<a name="link" />
+
+Create a new hard link at `path` for a file specified at `source`
+calling `callback` with an `Error`, if one occurs.
+
+```kotlin
+link("/home/file", "/home/link") { err ->
+  if (null != err) {
+    println("Something went creating hard link: ${err.message}")
+  }
+}
+```
+
+### `symlink(source: String, path: String, type: Int = 0, callback: Callback)`
+<a name="symlink" />
+
+```kotlin
+symlink("/home/file", "/home/symlink") { err ->
+  if (null != err) {
+    println("Something went creating soft link: ${err.message}")
   }
 }
 ```
