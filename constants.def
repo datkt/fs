@@ -1,7 +1,3 @@
 compilerOpts = -I. -I node_modules/@datkt/uv/include
 headerFilter = constants.h
 package = datkt.fs.constants
-
----
-
-#include "constants.h"
