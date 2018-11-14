@@ -15,7 +15,9 @@ import datkt.uv.uv_fs_req_cleanup
 import datkt.uv.uv_fs_link
 import datkt.uv.uv_fs_t
 
-fun link(source: String, path: String, callback: (Error?) -> Any?) {
+import datkt.fs.EmptyCallback as Callback
+
+fun link(source: String, path: String, callback: Callback) {
   val ref = StableRef.create(callback)
   val req = nativeHeap.alloc<uv_fs_t>()
   req.data = ref.asCPointer()
@@ -31,7 +33,7 @@ private fun onlink(req: CPointer<uv_fs_t>?) {
   uv_fs_req_cleanup(req)
 
   val fs: uv_fs_t? = req?.pointed
-  val ref = fs?.data?.asStableRef<(Error?) -> Any?>()
+  val ref = fs?.data?.asStableRef<Callback>()
   val callback = ref?.get()
   val err = datkt.fs.createError(fs)
 

@@ -17,7 +17,7 @@ import datkt.uv.uv_fs_req_cleanup
 import datkt.uv.uv_fs_symlink
 import datkt.uv.uv_fs_t
 
-private typealias Callback = (Error?) -> Any?
+import datkt.fs.EmptyCallback as Callback
 
 val SYMLINK_FILE = 0
 val SYMLINK_DIRECTORY = UV_FS_SYMLINK_DIR // 1
@@ -40,7 +40,7 @@ private fun onsymlink(req: CPointer<uv_fs_t>?) {
   uv_fs_req_cleanup(req)
 
   val fs: uv_fs_t? = req?.pointed
-  val ref = fs?.data?.asStableRef<(Error?) -> Any?>()
+  val ref = fs?.data?.asStableRef<Callback>()
   val callback = ref?.get()
   val err = datkt.fs.createError(fs)
 
