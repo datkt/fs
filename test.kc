@@ -1,3 +1,2 @@
 require[] = "@datkt/tape"
 require[] = "./"
-#cflags[] = -linker-options '-lpthread'
