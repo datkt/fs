@@ -3,8 +3,9 @@ package datkt.fs.test
 import datkt.tape.test
 
 private const val FILENAME = "test.kexe"
+private const val LINK = "test.kexe.link"
 
-fun chown(argv: Array<String>) {
+fun link(argv: Array<String>) {
   var uid: Int = 0
   var gid: Int = 0
 
@@ -15,9 +16,9 @@ fun chown(argv: Array<String>) {
     uid = argv[0].toInt()
   }
 
-  test("chown(path, uid, gid, callback)") {
-    t -> datkt.fs.chown(FILENAME, uid, gid) { err ->
-      t.equal(err, null, "chown succeeds")
+  test("link(source, path, callback)") { t ->
+    datkt.fs.link(FILENAME, LINK) { err ->
+      t.equal(err, null, "link succeeds")
       t.end(err)
     }
   }

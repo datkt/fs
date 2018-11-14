@@ -1,7 +1,9 @@
 import datkt.fs.test.constants
+import datkt.fs.test.symlink
 import datkt.fs.test.access
 import datkt.fs.test.chmod
 import datkt.fs.test.chown
+import datkt.fs.test.link
 
 fun main(argv: Array<String>) {
   fun call(runner: (argv: Array<String>) -> Any?) {
@@ -13,6 +15,8 @@ fun main(argv: Array<String>) {
   call(::access)
   call(::chmod)
   call(::chown)
+  call(::link)
+  call(::symlink)
 
   datkt.tape.collect()
 }

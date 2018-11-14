@@ -5,7 +5,7 @@ import datkt.tape.test
 private const val FILENAME = "test.kexe"
 
 fun chmod(argv: Array<String>) {
-  test("chmod(path: String, mode: Long, callback: (Error?) -> Any?)") { t ->
+  test("chmod(path, mode, callback") { t ->
     var i = 0
     fun testMode(name: String, mode: Long) {
       i++
