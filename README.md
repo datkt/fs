@@ -228,12 +228,12 @@ if (stat.isSocket()) {
 #### `Stats.isFIFO(): Boolean`
 <a name="stats-isFIFO" />
 
-Check if the stat points to a [fifo](https://en.wikipedia.org/wiki/Named_pipe).
+Check if the stat points to a [FIFO](https://en.wikipedia.org/wiki/Named_pipe).
 Equivalent to `stat.hasMode(S_IFIFO)`.
 
 ```kotlin
 if (stat.isFIFO()) {
-  // stat points to a fifo (named pipe)
+  // stat points to a FIFO (named pipe)
 }
 ```
 
