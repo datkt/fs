@@ -29,7 +29,20 @@ where `main.kt` might be
 import datkt.fs.*
 
 fun main(args: Array<String>) {
-  // @TODO
+  mkdir("./directory") { err ->
+    if (null != err) {
+      println("Failed to make directory: ${err.message}")
+    } else {
+      writeFile("./directory/file", "hello world") { err ->
+        if (null != err) {
+          println("Failed to write file: ${err.message}")
+        }
+      }
+    }
+  }
+
+  // kick off file system event loop
+  datkt.fs.loop.run()
 }
 ```
 
