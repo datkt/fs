@@ -40,6 +40,7 @@ fun main(args: Array<String>) {
 * [chown(path, uid, gid, callback)](#chown)
 * [link(source, path, callback)](#link)
 * [symlink(source, path, type, callback)](#symlink)
+* [stat(path, callback)](#stat)
 
 ### `access(path: String, mode: Long = F_OK, callback: (Error?) -> Unit?)`
 <a name="access" />
@@ -113,6 +114,45 @@ link("/home/file", "/home/link") { err ->
 symlink("/home/file", "/home/symlink") { err ->
   if (null != err) {
     println("Something went creating soft link: ${err.message}")
+  }
+}
+```
+
+### `data class Stats(...)`
+
+Represents a data class containing stat properties of a file.
+
+```kotlin
+data class Stats(
+  val dev: Long = 0,
+  val mode: Long = 0,
+  val nlink: Long = 0,
+  val uid: Long = 0,
+  val gid: Long = 0,
+  val rdev: Long = 0,
+  val ino: Long = 0,
+  val size: Long = 0,
+  val blksize: Long = 0,
+  val blocks: Long = 0,
+  val atime: Long = 0,
+  val mtime: Long = 0,
+  val ctime: Long = 0,
+  val birthtime: Long = 0
+)
+```
+
+### `stat(path: String, callback: Callback)`
+
+Query the stats of a file specified at `path`, if it exists, calling
+`callback` with an `Error`, if one occurs, otherwise an instance of
+`Stats` as the second argument.
+
+```kotlin
+stat("/home/file") { err, stats ->
+  if (null != err) {
+    println(err.message)
+  } else {
+    println(stats)
   }
 }
 ```
