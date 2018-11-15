@@ -196,6 +196,7 @@ lstat("/home/file") { err, stats ->
 ```
 
 ### `mkdir(path: String, mode: Long = DEFAULT_MKDIR_MODE, callback: Callback)`
+<a name="mkdir" />
 
 Make a directory specified at `path` with with `mode` calling `calling`
 with an `Error`, if one occurs. The `mode` defaults to
@@ -210,6 +211,7 @@ mkdir("/path/to/directory") { err ->
 ```
 
 #### Modes
+<a name="mkdir-modes" />
 
 See [File Modes](#chmod-modes) for a list of all file modes.
 The default mode is defined by the `DEFAULT_MKDIR_MODE` constant.
