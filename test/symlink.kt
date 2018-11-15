@@ -20,10 +20,17 @@ fun symlink(argv: Array<String>) {
     var i = 0
     fun queue(type: Int) {
       i++
-      datkt.fs.symlink(FILENAME, "${LINK}-${type}-${i}", type) { err ->
+      val link = "${LINK}-${type}-${i}"
+      datkt.fs.symlink(FILENAME, link, type) { err ->
         t.equal(err, null, "symlink succeeds")
-        if (0 == --i) {
-          t.end(err)
+        datkt.fs.lstat(link) { err, stat ->
+          t.equal(err, null, "Faild to stat")
+          t.ok(null != stat, "stats are null")
+          t.ok(stat?.isSymbolicLink(), "Failed to stat correctly symbolic link")
+
+          if (0 == --i) {
+            t.end(err)
+          }
         }
       }
     }

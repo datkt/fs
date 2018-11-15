@@ -30,14 +30,17 @@ val S_IFBLK = datkt.fs.constants._S_IFBLK()
 val S_IFIFO = datkt.fs.constants._S_IFIFO()
 val S_IFLNK = datkt.fs.constants._S_IFLNK()
 val S_IFSOCK = datkt.fs.constants._S_IFSOCK()
+
 val S_IRWXU = datkt.fs.constants._S_IRWXU()
 val S_IRUSR = datkt.fs.constants._S_IRUSR()
 val S_IWUSR = datkt.fs.constants._S_IWUSR()
 val S_IXUSR = datkt.fs.constants._S_IXUSR()
+
 val S_IRWXG = datkt.fs.constants._S_IRWXG()
 val S_IRGRP = datkt.fs.constants._S_IRGRP()
 val S_IWGRP = datkt.fs.constants._S_IWGRP()
 val S_IXGRP = datkt.fs.constants._S_IXGRP()
+
 val S_IRWXO = datkt.fs.constants._S_IRWXO()
 val S_IROTH = datkt.fs.constants._S_IROTH()
 val S_IWOTH = datkt.fs.constants._S_IWOTH()

@@ -35,14 +35,17 @@ fun main(args: Array<String>) {
 
 ## API
 
-* [access(path, mode, callback)](#access)
-* [chmod(path, mode, callback)](#chmod)
-* [chown(path, uid, gid, callback)](#chown)
-* [link(source, path, callback)](#link)
-* [symlink(source, path, type, callback)](#symlink)
-* [stat(path, callback)](#stat)
-* [lstat(path, callback)](#lstat)
-* [Stats(...)](#stats)
+* [fun access(path, mode, callback)](#access)
+  * [Access Modes](#access-modes)
+* [fun chmod(path, mode, callback)](#chmod)
+  * [File Modes](#chmod-modes)
+* [fun chown(path, uid, gid, callback)](#chown)
+* [fun link(source, path, callback)](#link)
+* [fun symlink(source, path, type, callback)](#symlink)
+* [fun stat(path, callback)](#stat)
+* [fun lstat(path, callback)](#lstat)
+* [fun mkdir(path, mode, callback)](#mkdir)
+* [class Stats(...)](#stats)
   * [Stats.hasMode(mode)](#stats-hasMode)
   * [Stats.isCharacterDevice()](#stats-isCharacterDevice)
   * [Stats.isSymbolicLink()](#stats-isSymbolicLink)
@@ -66,6 +69,17 @@ access("/home") { err ->
 }
 ```
 
+#### Access Modes
+<a name="access-modes" />
+
+The possible values for the `mode` argument to test file access
+permissions can be seen below.
+
+* `F_OK` - Test for the existence of a file
+* `R_OK` - Test for read permissions on a file
+* `W_OK` - Test for write permissions on a file
+* `X_OK` - Test for execution permissions on a file
+
 ### `chmod(path: String, mode: Long, callback: Callback)`
 <a name="chmod" />
 
@@ -87,6 +101,25 @@ chmod("/home/program", mode) { err ->
   }
 }
 ```
+
+#### File Modes
+<a name="chmod-modes" />
+
+The possible values for the `mode` argument can be seen below. They can
+be grouped into a bit mask by the logical OR (`or`) operator.
+
+* `S_IRWXU` - Read, write, and execute by owner (`700`)
+* `S_IRUSR` - Read by owner (`400`)
+* `S_IWUSR` - Write by owner (`200`)
+* `S_IXUSR` - Execute by owner (`100`)
+* `S_IRWXG` - Read, write, and Execute by group (`070`)
+* `S_IRGRP` - Read by group (`040`)
+* `S_IWGRP` - Write by group (`020`)
+* `S_IXGRP` - Execute by group (`010`)
+* `S_IRWXO` - Read, write, and execute by others (`007`)
+* `S_IROTH` - Read by others (`004`)
+* `S_IWOTH` - Write by others (`002`)
+* `S_IXOTH` - Execute by others (`001`)
 
 ### `chown(path: String, uid: Long, gid: Long, callback: Callback)`
 <a name="chown" />
@@ -126,6 +159,63 @@ symlink("/home/file", "/home/symlink") { err ->
     println("Something went creating soft link: ${err.message}")
   }
 }
+```
+
+### `stat(path: String, callback: Callback)`
+<a name="stat" />
+
+Query the stats of a file specified at `path`, if it exists, calling
+`callback` with an `Error`, if one occurs, otherwise an instance of
+`Stats` as the second argument.
+
+```kotlin
+stat("/home/file") { err, stats ->
+  if (null != err) {
+    println(err.message)
+  } else {
+    println(stats)
+  }
+}
+```
+
+### `lstat(path: String, callback: Callback)`
+<a name="lstat" />
+
+Query the stats of a file specified at `path`, if it is a link or file, calling
+`callback` with an `Error`, if one occurs, otherwise an instance of
+`Stats` as the second argument.
+
+```kotlin
+lstat("/home/file") { err, stats ->
+  if (null != err) {
+    println(err.message)
+  } else {
+    println(stats)
+  }
+}
+```
+
+### `mkdir(path: String, mode: Long = DEFAULT_MKDIR_MODE, callback: Callback)`
+
+Make a directory specified at `path` with with `mode` calling `calling`
+with an `Error`, if one occurs. The `mode` defaults to
+`DEFAULT_MKDIR_MODE` (see below) if not specified.
+
+```kotlin
+mkdir("/path/to/directory") { err ->
+  if (null != err) {
+    println(err.message)
+  }
+}
+```
+
+#### Modes
+
+See [File Modes](#chmod-modes) for a list of all file modes.
+The default mode is defined by the `DEFAULT_MKDIR_MODE` constant.
+
+```kotlin
+val DEFAULT_MKDIR_MODE = (S_IRWXU or S_IRWXG or S_IRWXO)
 ```
 
 ### `class Stats(...)`
@@ -246,40 +336,6 @@ Equivalent to `stat.hasMode(S_IFREG)`.
 ```kotlin
 if (stat.isFile()) {
   // stat points to a file
-}
-```
-
-### `stat(path: String, callback: Callback)`
-<a name="stat" />
-
-Query the stats of a file specified at `path`, if it exists, calling
-`callback` with an `Error`, if one occurs, otherwise an instance of
-`Stats` as the second argument.
-
-```kotlin
-stat("/home/file") { err, stats ->
-  if (null != err) {
-    println(err.message)
-  } else {
-    println(stats)
-  }
-}
-```
-
-### `lstat(path: String, callback: Callback)`
-<a name="lstat" />
-
-Query the stats of a file specified at `path`, if it is a link or file, calling
-`callback` with an `Error`, if one occurs, otherwise an instance of
-`Stats` as the second argument.
-
-```kotlin
-lstat("/home/file") { err, stats ->
-  if (null != err) {
-    println(err.message)
-  } else {
-    println(stats)
-  }
 }
 ```
 
