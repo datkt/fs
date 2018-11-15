@@ -1,7 +1,8 @@
 datkt.fs
 ========
 
-Async file system for Kotlin built on libuv
+Asynchronous file system operations for Kotlin built on libuv and based
+on the [file system API for Node.js](https://nodejs.org/api/fs.html).
 
 ## Installation
 
@@ -48,6 +49,7 @@ fun main(args: Array<String>) {
 
 ## API
 
+* [object loop](#loop)
 * [fun access(path, mode, callback)](#access)
   * [Access Modes](#access-modes)
 * [fun chmod(path, mode, callback)](#chmod)
@@ -67,6 +69,31 @@ fun main(args: Array<String>) {
   * [Stats.isSocket()](#stats-isSocket)
   * [Stats.isFIFO()](#stats-isFIFO)
   * [Stats.isFile()](#stats-isFile)
+
+### `object loop { ... }`
+<a name="loop" />
+
+An `object` that represents an interface into the
+[uv](https://github.com/datkt/uv) event loop used internally for
+asynchronous work done by the functions exposed in this package.
+`datkt.fs.loop.run()` will invoke any queued work for the event loop.
+
+```kotlin
+object loop {
+  fun run(): Int
+  fun stop()
+}
+```
+
+#### `loop.run()`
+
+Invoke the uv event loop. Calls
+[uv_run](http://docs.libuv.org/en/v1.x/loop.html#c.uv_run) internally.
+
+#### `loop.stop()`
+
+Stop the uv event loop. Calls
+[uv_stop](http://docs.libuv.org/en/v1.x/loop.html#c.uv_stop) internally.
 
 ### `access(path: String, mode: Long = F_OK, callback: (Error?) -> Unit?)`
 <a name="access" />
