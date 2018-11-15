@@ -7,7 +7,9 @@ import datkt.uv.uv_stop
 import datkt.uv.uv_run
 
 object loop {
-  val default get() = uv_default_loop()
+  var factory = ::uv_default_loop
+  val default get() = this.factory()
+
   fun run(): Int {
     return uv_run(loop.default, UV_RUN_DEFAULT)
   }
