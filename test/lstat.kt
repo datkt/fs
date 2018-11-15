@@ -4,7 +4,7 @@ import datkt.tape.test
 
 private const val FILENAME = "test.kexe"
 
-fun stat(argv: Array<String>) {
+fun lstat(argv: Array<String>) {
   var uid: Int = 0
   var gid: Int = 0
 
@@ -15,15 +15,14 @@ fun stat(argv: Array<String>) {
     uid = argv[0].toInt()
   }
 
-  test("stat(path, callback)") { t ->
-    datkt.fs.stat(FILENAME) { err, stats ->
+  test("lstat(path, callback)") { t ->
+    datkt.fs.lstat(FILENAME) { err, stats ->
       t.ok(null != stats)
       t.error(err)
 
       if (null == stats) {
         t.fail("Failed to stat file")
       } else {
-        println(stats)
         t.ok(stats.dev > 0, "stats.dev > 0")
         t.ok(stats.mode > 0, "stats.mode > 0")
         t.ok(stats.nlink > 0, "stats.nlink > 0")
@@ -38,7 +37,7 @@ fun stat(argv: Array<String>) {
       }
     }
 
-    datkt.fs.stat("${FILENAME}.notarealext") { err, stats ->
+    datkt.fs.lstat("${FILENAME}.notarealext") { err, stats ->
       t.ok(err, "Error thrown")
       t.equal(stats, null, "stats are set to null for non file")
       t.end()

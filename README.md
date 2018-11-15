@@ -157,6 +157,22 @@ stat("/home/file") { err, stats ->
 }
 ```
 
+### `lstat(path: String, callback: Callback)`
+
+Query the stats of a file specified at `path`, if it is a link or file, calling
+`callback` with an `Error`, if one occurs, otherwise an instance of
+`Stats` as the second argument.
+
+```kotlin
+lstat("/home/file") { err, stats ->
+  if (null != err) {
+    println(err.message)
+  } else {
+    println(stats)
+  }
+}
+```
+
 ## License
 
 MIT

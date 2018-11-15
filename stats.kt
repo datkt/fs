@@ -2,7 +2,7 @@ package datkt.fs
 
 import datkt.uv.uv_stat_t
 
-data class Stats(
+class Stats(
   val dev: Long = 0,
   val mode: Long = 0,
   val nlink: Long = 0,
@@ -17,7 +17,28 @@ data class Stats(
   val mtime: Long = 0,
   val ctime: Long = 0,
   val birthtime: Long = 0
-)
+) {
+  override fun toString(): String {
+    return """
+Stats {
+  dev=${this.dev},
+  mode=${this.mode},
+  nlink=${this.nlink},
+  uid=${this.uid},
+  gid=${this.gid},
+  rdev=${this.rdev},
+  ino=${this.ino},
+  size=${this.size},
+  blksize=${this.blksize},
+  blocks=${this.blocks},
+  atime=${this.atime},
+  mtime=${this.mtime},
+  ctime=${this.ctime},
+  birthtime=${this.birthtime}
+}
+""".trim()
+  }
+}
 
 fun uv_stat_t.toStats() = Stats(
   dev = this.st_dev.toLong(),
