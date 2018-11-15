@@ -38,6 +38,18 @@ Stats {
 }
 """.trim()
   }
+
+  fun hasMode(mode: Long): Boolean {
+    return if (-1 == mode.toInt()) false else (mode == (this.mode and S_IFMT))
+  }
+
+  fun isCharacterDevice() = this.hasMode(S_IFCHR)
+  fun isSymbolicLink() = this.hasMode(S_IFLNK)
+  fun isBlockDevice() = this.hasMode(S_IFBLK)
+  fun isDirectory() = this.hasMode(S_IFDIR)
+  fun isSocket() = this.hasMode(S_IFSOCK)
+  fun isFIFO() = this.hasMode(S_IFIFO)
+  fun isFile() = this.hasMode(S_IFREG)
 }
 
 fun uv_stat_t.toStats() = Stats(

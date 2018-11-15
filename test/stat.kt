@@ -23,7 +23,6 @@ fun stat(argv: Array<String>) {
       if (null == stats) {
         t.fail("Failed to stat file")
       } else {
-        println(stats)
         t.ok(stats.dev > 0, "stats.dev > 0")
         t.ok(stats.mode > 0, "stats.mode > 0")
         t.ok(stats.nlink > 0, "stats.nlink > 0")
@@ -35,6 +34,7 @@ fun stat(argv: Array<String>) {
         t.ok(stats.mtime > 0, "stats.mtime > 0")
         t.ok(stats.ctime > 0, "stats.ctime > 0")
         t.ok(stats.birthtime > 0, "stats.birthtime > 0")
+        t.ok(stats.isFile(), "true == stats.isFile()")
       }
     }
 

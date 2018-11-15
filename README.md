@@ -41,6 +41,16 @@ fun main(args: Array<String>) {
 * [link(source, path, callback)](#link)
 * [symlink(source, path, type, callback)](#symlink)
 * [stat(path, callback)](#stat)
+* [lstat(path, callback)](#lstat)
+* [Stats(...)](#stats)
+  * [Stats.hasMode(mode)](#stats-hasMode)
+  * [Stats.isCharacterDevice()](#stats-isCharacterDevice)
+  * [Stats.isSymbolicLink()](#stats-isSymbolicLink)
+  * [Stats.isBlockDevice()](#stats-isBlockDevice)
+  * [Stats.isDirectory()](#stats-isDirectory)
+  * [Stats.isSocket()](#stats-isSocket)
+  * [Stats.isFIFO()](#stats-isFIFO)
+  * [Stats.isFile()](#stats-isFile)
 
 ### `access(path: String, mode: Long = F_OK, callback: (Error?) -> Unit?)`
 <a name="access" />
@@ -118,12 +128,14 @@ symlink("/home/file", "/home/symlink") { err ->
 }
 ```
 
-### `data class Stats(...)`
+### `class Stats(...)`
+
+<a name="stats" />
 
 Represents a data class containing stat properties of a file.
 
 ```kotlin
-data class Stats(
+class Stats(
   val dev: Long = 0,
   val mode: Long = 0,
   val nlink: Long = 0,
@@ -141,7 +153,104 @@ data class Stats(
 )
 ```
 
+#### `Stats.hasMode(mode: Long): Boolean`
+<a name="stats-hasMode" />
+
+Check if a given mode is present in the stat's mode bit field.
+
+```kotlin
+if (stat.hasMode(S_IFREG)) {
+  // stat points to a regular file
+}
+```
+
+#### `Stats.isCharacterDevice(): Boolean`
+<a name="stats-isCharacterDevice" />
+
+Check if the stat points to a [character
+device](https://en.wikipedia.org/wiki/Device_file#Character_devices).
+Equivalent to `stat.hasMode(S_IFCHR)`.
+
+```kotlin
+if (stat.isCharacterDevice()) {
+  // stat points to a character device
+}
+```
+
+#### `Stats.isSymbolicLink(): Boolean`
+<a name="stats-isSymbolicLink" />
+
+Check if the stat points to a [symbolic link](
+https://en.wikipedia.org/wiki/Symbolic_link).
+Equivalent to `stat.hasMode(S_IFLNK)`.
+
+```kotlin
+if (stat.isSymbolicLink()) {
+  // stat points to a symbolic link
+}
+```
+
+#### `Stats.isBlockDevice(): Boolean`
+<a name="stats-isBlockDevice" />
+
+Check if the stat points to a [block
+device](https://en.wikipedia.org/wiki/Device_file#Block_devices).
+Equivalent to `stat.hasMode(S_IFBLK)`.
+
+```kotlin
+if (stat.isBlockDevice()) {
+  // stat points to a block device
+}
+```
+
+#### `Stats.isDirectory(): Boolean`
+<a name="stats-isDirectory" />
+
+Check if the stat points to a directory. Equivalent to `stat.hasMode(S_IFDIR)`.
+
+```kotlin
+if (stat.isDirectory()) {
+  // stat points to a directory
+}
+```
+
+#### `Stats.isSocket(): Boolean`
+<a name="stats-isSocket" />
+
+Check if the stat points to a socket. Equivalent to `stat.hasMode(S_IFSOCK)`.
+
+```kotlin
+if (stat.isSocket()) {
+  // stat points to a socket
+}
+```
+
+#### `Stats.isFIFO(): Boolean`
+<a name="stats-isFIFO" />
+
+Check if the stat points to a [fifo](https://en.wikipedia.org/wiki/Named_pipe).
+Equivalent to `stat.hasMode(S_IFIFO)`.
+
+```kotlin
+if (stat.isFIFO()) {
+  // stat points to a fifo (named pipe)
+}
+```
+
+#### `Stats.isFile(): Boolean`
+<a name="stats-isFile" />
+
+Check if the stat points to a regular file.
+Equivalent to `stat.hasMode(S_IFREG)`.
+
+```kotlin
+if (stat.isFile()) {
+  // stat points to a file
+}
+```
+
 ### `stat(path: String, callback: Callback)`
+<a name="stat" />
 
 Query the stats of a file specified at `path`, if it exists, calling
 `callback` with an `Error`, if one occurs, otherwise an instance of
@@ -158,6 +267,7 @@ stat("/home/file") { err, stats ->
 ```
 
 ### `lstat(path: String, callback: Callback)`
+<a name="lstat" />
 
 Query the stats of a file specified at `path`, if it is a link or file, calling
 `callback` with an `Error`, if one occurs, otherwise an instance of
