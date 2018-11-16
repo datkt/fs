@@ -2,8 +2,9 @@ import datkt.fs.test.constants
 import datkt.fs.test.readdir
 import datkt.fs.test.symlink
 import datkt.fs.test.access
-import datkt.fs.test.chmod
+import datkt.fs.test.lchown
 import datkt.fs.test.chown
+import datkt.fs.test.chmod
 import datkt.fs.test.mkdir
 import datkt.fs.test.lstat
 import datkt.fs.test.stats
@@ -30,6 +31,7 @@ fun main(argv: Array<String>) {
     call(::access)
     call(::chmod)
     call(::chown)
+    call(::lchown)
     call(::stats)
     call(::lstat)
     call(::stat)

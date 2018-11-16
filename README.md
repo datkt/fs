@@ -55,6 +55,7 @@ fun main(args: Array<String>) {
 * [fun chmod(path, mode, callback)](#chmod)
   * [File Modes](#chmod-modes)
 * [fun chown(path, uid, gid, callback)](#chown)
+* [fun lchown(path, uid, gid, callback)](#lchown)
 * [fun link(source, path, callback)](#link)
 * [fun symlink(source, path, type, callback)](#symlink)
 * [fun stat(path, callback)](#stat)
@@ -177,6 +178,23 @@ chown("/home/file", 1000, 10) { err ->
 }
 ```
 
+### `lchown(path: String, uid: Long, gid: Long, callback: Callback)`
+<a name="lchown" />
+
+Change user and group ownership of a symbolic link specified at `path` for
+user id `uid`, and group id `gid` calling `callback` with an `Error`, if one
+occurs.
+
+```kotlin
+symlink("/home/file", "/home/link") { err ->
+  lchown("/home/link", 1000, 10) { err ->
+    if (null != err) {
+      println("Something went wrong changing link ownership: ${err.message}")
+    }
+  }
+}
+```
+
 ### `link(source: String, path: String, callback: Callback)`
 <a name="link" />
 
@@ -278,8 +296,8 @@ readdir("/home") { err, entries, ->
 
 ### `class Stats(...)`
 
-<a name="stats" />
 
+<a name="stats" />
 Represents a data class containing stat properties of a file.
 
 ```kotlin
