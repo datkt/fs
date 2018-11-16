@@ -17,7 +17,7 @@ fun access(path: String, mode: Long = F_OK, callback: Callback) {
   val req = uv.init<Callback>(callback)
   uv_fs_access(
     datkt.fs.loop.default,
-    uv.toCValuesRef(req),
+    uv.toCValuesRef<uv_fs_t>(req),
     path,
     mode.toInt(),
     staticCFunction(::onaccess))

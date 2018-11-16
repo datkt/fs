@@ -13,7 +13,7 @@ fun chmod(path: String, mode: Long, callback: Callback) {
   val req = uv.init<Callback>(callback)
   uv_fs_chmod(
     datkt.fs.loop.default,
-    uv.toCValuesRef(req),
+    uv.toCValuesRef<uv_fs_t>(req),
     path,
     mode.toInt(),
     staticCFunction(::onchmod))

@@ -1,4 +1,5 @@
 import datkt.fs.test.constants
+import datkt.fs.test.readdir
 import datkt.fs.test.symlink
 import datkt.fs.test.access
 import datkt.fs.test.chmod
@@ -35,6 +36,7 @@ fun main(argv: Array<String>) {
     call(::link)
     call(::symlink)
     call(::mkdir)
+    call(::readdir)
   }
 
   fun launch(block: suspend () -> Unit) {

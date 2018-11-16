@@ -13,7 +13,7 @@ fun stat(path: String, callback: Callback) {
   val req = uv.init<Callback>(callback)
   uv_fs_stat(
     datkt.fs.loop.default,
-    uv.toCValuesRef(req),
+    uv.toCValuesRef<uv_fs_t>(req),
     path,
     staticCFunction(::onstat))
 }

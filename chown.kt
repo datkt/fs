@@ -14,7 +14,7 @@ fun chown(path: String, uid: Int, gid: Int, callback: Callback) {
   val req = uv.init<Callback>(callback)
   uv_fs_chown(
     datkt.fs.loop.default,
-    uv.toCValuesRef(req),
+    uv.toCValuesRef<uv_fs_t>(req),
     path,
     uid.convert(),
     gid.convert(),

@@ -1,8 +1,8 @@
 package datkt.fs
 
-import kotlinx.cinterop.*
-import datkt.uv.uv_fs_s
+import kotlinx.cinterop.toKString
 import datkt.uv.uv_strerror
+import datkt.uv.uv_fs_s
 
 fun createError(fs: uv_fs_s?): Error? {
   if (null == fs) {
@@ -15,4 +15,17 @@ fun createError(fs: uv_fs_s?): Error? {
   }
 
   return null
+}
+
+fun createError(errno: Int): Error? {
+  if (errno < 0) {
+    val message = uv_strerror(errno)?.toKString()
+    return Error(message)
+  }
+
+  return null
+}
+
+fun createError(errno: Long): Error? {
+  return createError(errno.toInt())
 }

@@ -60,6 +60,7 @@ fun main(args: Array<String>) {
 * [fun stat(path, callback)](#stat)
 * [fun lstat(path, callback)](#lstat)
 * [fun mkdir(path, mode, callback)](#mkdir)
+* [fun readdir(path, callback)](#readdir)
 * [class Stats(...)](#stats)
   * [Stats.hasMode(mode)](#stats-hasMode)
   * [Stats.isCharacterDevice()](#stats-isCharacterDevice)
@@ -258,6 +259,21 @@ The default mode is defined by the `DEFAULT_MKDIR_MODE` constant.
 
 ```kotlin
 val DEFAULT_MKDIR_MODE = (S_IRWXU or S_IRWXG or S_IRWXO)
+```
+
+### `readdir(path: String, callback: Callback)`
+<a name="readdir" />
+
+Read a directory specified at `path` for files entries calling
+`callback` with an `Error`, if one occurs, otherwise an `Array<String>`
+with file names.
+
+```kotlin
+readdir("/home") { err, entries, ->
+  for (entry in entries) {
+    println(entry)
+  }
+}
 ```
 
 ### `class Stats(...)`

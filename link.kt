@@ -13,7 +13,7 @@ fun link(source: String, path: String, callback: Callback) {
   val req = uv.init<Callback>(callback)
   uv_fs_link(
     datkt.fs.loop.default,
-    uv.toCValuesRef(req),
+    uv.toCValuesRef<uv_fs_t>(req),
     source,
     path,
     staticCFunction(::onlink))

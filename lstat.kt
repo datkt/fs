@@ -13,7 +13,7 @@ fun lstat(path: String, callback: Callback) {
   val req = uv.init<Callback>(callback)
   uv_fs_lstat(
     datkt.fs.loop.default,
-    uv.toCValuesRef(req),
+    uv.toCValuesRef<uv_fs_t>(req),
     path,
     staticCFunction(::onlstat))
 }

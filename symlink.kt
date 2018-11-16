@@ -19,7 +19,7 @@ fun symlink(source: String, path: String, type: Int = 0, callback: Callback) {
   val req = uv.init<Callback>(callback)
   uv_fs_symlink(
     datkt.fs.loop.default,
-    uv.toCValuesRef(req),
+    uv.toCValuesRef<uv_fs_t>(req),
     source,
     path,
     type,
