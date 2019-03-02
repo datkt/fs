@@ -7,7 +7,6 @@ import datkt.uv.uv_fs_chmod
 import datkt.uv.uv_fs_t
 
 import datkt.fs.EmptyCallback as Callback
-import datkt.fs.uv.uv
 
 fun chmod(path: String, mode: Long, callback: Callback) {
   val req = uv.init<Callback>(callback)

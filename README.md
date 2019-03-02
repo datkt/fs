@@ -62,6 +62,8 @@ fun main(args: Array<String>) {
 * [fun lstat(path, callback)](#lstat)
 * [fun mkdir(path, mode, callback)](#mkdir)
 * [fun readdir(path, callback)](#readdir)
+* [fun open(path, flags, mode, callback)](#open)
+  * [File System Flags](#file-system-flags)
 * [class Stats(...)](#stats)
   * [Stats.hasMode(mode)](#stats-hasMode)
   * [Stats.isCharacterDevice()](#stats-isCharacterDevice)
@@ -294,8 +296,47 @@ readdir("/home") { err, entries, ->
 }
 ```
 
-### `class Stats(...)`
+### `open(path: String, flags: String = "r", mode: Long = DEFAULT_OPEN_MODE, callback: Callback)
+<a name="open" />
 
+Open a file specified at `path` with optional flags and mode calling
+`callback` with an `Error`, if one occurs, otherwise with a valid file
+descriptor.
+
+```kotlin
+open("/path/to/file") { err, fd ->
+  if (null != err) {
+    println(err.message)
+  } else {
+    // do something with fd
+  }
+}
+```
+
+By default, all files will be opened in `DEFAULT_OPEN_MODE` where:
+
+```kotlin
+// equivalent to (0666)
+val DEFAULT_OPEN_MODE = (
+  S_IRUSR or S_IWUSR or
+  S_IRGRP or S_IWGRP or
+  S_IROTH or S_IWOTH
+)
+```
+
+### File System Flags
+<a name="file-system-flags" />
+
+* `"r"` - Open file for reading. An error occurs if the file does not exist.
+* `"r+"` - Open file for reading and writing. An error occurs if the file does not exist.
+* `"w"` - Open file for writing. The file is created if it does not
+  exist, otherwise it is truncated.
+* `"w+"` - Open file for reading and writing. The file is created if it does not
+  exist, otherwise it is truncated.
+* `"a"` - Open file for appending. Writes start at the end of the file.
+  The file is created if it does not exist, otherwise it is truncated.
+
+### `class Stats(...)`
 
 <a name="stats" />
 Represents a data class containing stat properties of a file.

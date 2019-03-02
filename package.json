@@ -4,7 +4,7 @@
   "description": "Async file system access built on libuv",
   "scripts": {
     "build": "npm run build-constants && npm run build-library",
-    "build-constants": "cinterop -def constants.def -o constants",
+    "build-constants": "cinterop -def constants.def -o constants ",
     "build-library": "konanc *.kt $(konanc-config -clr lib.kc) -p library -o fs",
     "postinstall": "npm run build",
     "test": "rm -rf test.kexe* && konanc test/ $(konanc-config -clr test.kc) -o test.kexe && ./test.kexe $(id -u) $(id -G | awk '{print $2}')"

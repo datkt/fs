@@ -9,7 +9,6 @@ import datkt.uv.uv_fs_symlink
 import datkt.uv.uv_fs_t
 
 import datkt.fs.EmptyCallback as Callback
-import datkt.fs.uv.uv
 
 val SYMLINK_FILE = 0
 val SYMLINK_DIRECTORY = UV_FS_SYMLINK_DIR // 1

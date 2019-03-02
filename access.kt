@@ -4,7 +4,6 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.CPointer
 
 import datkt.fs.EmptyCallback as Callback
-import datkt.fs.uv.uv
 
 import datkt.uv.uv_fs_access
 import datkt.uv.uv_fs_t

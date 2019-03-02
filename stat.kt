@@ -7,7 +7,6 @@ import datkt.uv.uv_fs_stat
 import datkt.uv.uv_fs_t
 
 import datkt.fs.StatCallback as Callback
-import datkt.fs.uv.uv
 
 fun stat(path: String, callback: Callback) {
   val req = uv.init<Callback>(callback)

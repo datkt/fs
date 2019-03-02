@@ -2,7 +2,6 @@ package datkt.fs
 
 import datkt.uv.uv_default_loop
 import datkt.uv.UV_RUN_DEFAULT
-import datkt.uv.uv_loop_t
 import datkt.uv.uv_stop
 import datkt.uv.uv_run
 

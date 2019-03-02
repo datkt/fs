@@ -5,7 +5,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.convert
 
 import datkt.fs.EmptyCallback as Callback
-import datkt.fs.uv.uv
 
 import datkt.uv.uv_fs_chown
 import datkt.uv.uv_fs_t

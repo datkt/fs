@@ -1,12 +1,10 @@
 package datkt.fs
 
 import kotlinx.cinterop.staticCFunction
-import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
-import kotlinx.cinterop.ptr
 
 import datkt.uv.uv_fs_scandir_next
 import datkt.uv.uv_fs_scandir
@@ -15,7 +13,6 @@ import datkt.uv.uv_fs_t
 import datkt.uv.UV_EOF
 
 import datkt.fs.ReadDirectoryCallback as Callback
-import datkt.fs.uv.uv
 
 fun readdir(path: String, callback: Callback) {
   val cb = staticCFunction(::onscandir)

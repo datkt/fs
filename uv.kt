@@ -1,4 +1,4 @@
-package datkt.fs.uv
+package datkt.fs
 
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.nativeHeap
@@ -27,7 +27,7 @@ object uv {
   }
 
   fun <T : CPointed> toCValuesRef(req: T): CValuesRef<T> {
-    return (req as CStructVar).ptr as CValuesRef<T>
+    return req.ptr
   }
 
   class request<T>(req: UVRequest?, block: UVBlock<T>) {
@@ -54,7 +54,6 @@ object uv {
 
       this.cleanup = {
         val ref = this.ref
-        val req = this.req
 
         if (null != ref) {
           ref.dispose()
