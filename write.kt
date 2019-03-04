@@ -8,21 +8,21 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.ptr
 
-import datkt.fs.ReadFileCallback as Callback
+import datkt.fs.WriteFileCallback as Callback
 
-import datkt.uv.uv_fs_read
+import datkt.uv.uv_fs_write
 import datkt.uv.uv_buf_t
 import datkt.uv.uv_fs_t
 
-fun read(
+fun write(
   fd: Int,
   buffer: ByteArray,
-  offset: Int,
-  length: Int,
-  position: Int,
+  offset: Int = 0,
+  length: Int = buffer.size,
+  position: Int = 0,
   callback: Callback
 ) {
-  val cb = staticCFunction(::onread)
+  val cb = staticCFunction(::onwrite)
   val req = uv.init<Callback>(callback, buffer)
   val ref = uv.toCValuesRef<uv_fs_t>(req)
   val len = length.toLong().toULong()
@@ -33,20 +33,14 @@ fun read(
       buf.base = pinned.addressOf(offset)
       buf.len = len
 
-      uv_fs_read(loop.default, ref, fd, buf.ptr, 1, pos, cb)
+      uv_fs_write(loop.default, ref, fd, buf.ptr, 1, pos, cb)
     }
   }
 }
 
-private fun onread(req: CPointer<uv_fs_t>?) {
+private fun onwrite(req: CPointer<uv_fs_t>?) {
   uv.request<Callback>(req) { err, uv ->
     uv.cleanup()
-    if (null != err) {
-      uv.done(err, null)
-    } else if (null != uv.data.buffer) {
-      uv.done(null, uv.data.buffer as ByteArray)
-    } else {
-      uv.done(Error("Failed to acquire read buffer"), null)
-    }
+    uv.done(err)
   }
 }

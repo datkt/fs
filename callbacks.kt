@@ -6,3 +6,4 @@ typealias EmptyCallback = (Error?) -> Any?
 typealias BufferCallback = (Error?, ByteArray?) -> Any?
 typealias ReadDirectoryCallback = (Error?, Array<String>?) -> Any?
 typealias ReadFileCallback = BufferCallback
+typealias WriteFileCallback = EmptyCallback

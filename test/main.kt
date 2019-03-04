@@ -1,4 +1,5 @@
 import datkt.fs.test.constants
+import datkt.fs.test.writeFile
 import datkt.fs.test.readFile
 import datkt.fs.test.readdir
 import datkt.fs.test.symlink
@@ -9,6 +10,7 @@ import datkt.fs.test.chown
 import datkt.fs.test.close
 import datkt.fs.test.chmod
 import datkt.fs.test.mkdir
+import datkt.fs.test.write
 import datkt.fs.test.fstat
 import datkt.fs.test.lstat
 import datkt.fs.test.stats
@@ -37,6 +39,7 @@ fun main(argv: Array<String>) {
     call(::open)
     call(::close)
     call(::read)
+    call(::write)
     call(::unlink)
     call(::access)
     call(::chmod)
@@ -51,6 +54,7 @@ fun main(argv: Array<String>) {
     call(::mkdir)
     call(::readdir)
     call(::readFile)
+    call(::writeFile)
   }
 
   fun launch(block: suspend () -> Unit) {

@@ -1,11 +1,5 @@
 package datkt.fs
 
-import kotlinx.cinterop.staticCFunction
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.toKString
-import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-
 import datkt.fs.ReadFileCallback as Callback
 
 data class ReadFileOptions(
