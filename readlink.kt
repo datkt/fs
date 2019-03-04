@@ -1,25 +1,25 @@
 package datkt.fs
 
 import kotlinx.cinterop.staticCFunction
-import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ByteVar
 
 import datkt.fs.BufferCallback as Callback
 
-import datkt.uv.uv_fs_realpath
+import datkt.uv.uv_fs_readlink
 import datkt.uv.uv_fs_t
 
-fun realpath(path: String, callback: Callback) {
+fun readlink(path: String, callback: Callback) {
   val req = uv.init<Callback>(callback)
-  uv_fs_realpath(
+  uv_fs_readlink(
     datkt.fs.loop.default,
     uv.toCValuesRef<uv_fs_t>(req),
     path,
-    staticCFunction(::onrealpath))
+    staticCFunction(::onreadlink))
 }
 
-private fun onrealpath(req: CPointer<uv_fs_t>?) {
+private fun onreadlink(req: CPointer<uv_fs_t>?) {
   uv.request<Callback>(req) { err, uv ->
     val ptr = uv.fs?.ptr
     if (null != err) {
@@ -28,7 +28,7 @@ private fun onrealpath(req: CPointer<uv_fs_t>?) {
       val bytes: CPointer<ByteVar> = ptr as CPointer<ByteVar>
       val string = bytes.toKString()
       val byteArray = string.toUtf8()
-      uv.done(err, uv?.fs?.ptr as ByteArray)
+      uv.done(err, byteArray)
     }
 
     uv.cleanup()

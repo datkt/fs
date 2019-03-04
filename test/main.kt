@@ -3,6 +3,7 @@ import datkt.fs.test.writeFile
 import datkt.fs.test.copyFile
 import datkt.fs.test.readFile
 import datkt.fs.test.realpath
+import datkt.fs.test.readlink
 import datkt.fs.test.readdir
 import datkt.fs.test.symlink
 import datkt.fs.test.access
@@ -59,6 +60,7 @@ fun main(argv: Array<String>) {
     call(::writeFile)
     call(::copyFile)
     call(::realpath)
+    call(::readlink)
   }
 
   fun launch(block: suspend () -> Unit) {
