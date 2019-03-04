@@ -2,7 +2,6 @@ package datkt.fs
 
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.CStructVar
 import kotlinx.cinterop.CValuesRef
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.CPointed
@@ -12,15 +11,21 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.ptr
 
 import datkt.uv.uv_fs_req_cleanup
-import datkt.uv.uv_dirent_t
 import datkt.uv.uv_fs_t
 
 typealias UVRequest = CPointer<uv_fs_t>
 typealias UVBlock<T> = (Error?, uv.request<T>) -> Any?
 
+class UVRequestData<T>(
+  val callback: T,
+  val buffer: Any? = null
+)
+
 object uv {
-  fun <T> init(callback: T): uv_fs_t {
-    val ref = StableRef.create<Function<*>>(callback as Function<*>)
+  fun <T> init(callback: T, buffer: Any? = null): uv_fs_t {
+    val data = UVRequestData<T>(callback, buffer)
+    val ref = StableRef.create<UVRequestData<T>>(data)
+    //val ref = StableRef.create<Function<*>>(callback as Function<*>)
     val req = nativeHeap.alloc<uv_fs_t>()
     req.data = ref.asCPointer()
     return req
@@ -34,7 +39,9 @@ object uv {
     var cleanup: () -> Any?
     val block: UVBlock<T>
     var done: T
-    var ref: StableRef<Function<*>>? = null
+    var data: UVRequestData<T>
+    //var ref: StableRef<Function<*>>? = null
+    var ref: StableRef<UVRequestData<T>>? = null
     var err: Error? = null
     var req: UVRequest? = null
     var fs: uv_fs_t? = null
@@ -47,9 +54,11 @@ object uv {
     init {
       this.fs = req?.pointed
       this.req = req
-      this.ref = this.fs?.data?.asStableRef<Function<*>>()
+      //this.ref = this.fs?.data?.asStableRef<Function<*>>()
+      this.ref = this.fs?.data?.asStableRef<UVRequestData<T>>()
       this.err = datkt.fs.createError(fs)
-      this.done = ref?.get() as T
+      this.data = this.ref?.get() as UVRequestData<T>
+      this.done = this.data.callback
       this.block = block
 
       this.cleanup = {
