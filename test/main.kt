@@ -1,4 +1,5 @@
 import datkt.fs.test.constants
+import datkt.fs.test.readFile
 import datkt.fs.test.readdir
 import datkt.fs.test.symlink
 import datkt.fs.test.access
@@ -8,10 +9,12 @@ import datkt.fs.test.chown
 import datkt.fs.test.close
 import datkt.fs.test.chmod
 import datkt.fs.test.mkdir
+import datkt.fs.test.fstat
 import datkt.fs.test.lstat
 import datkt.fs.test.stats
 import datkt.fs.test.stat
 import datkt.fs.test.link
+import datkt.fs.test.read
 import datkt.fs.test.open
 
 import kotlin.coroutines.EmptyCoroutineContext
@@ -33,6 +36,7 @@ fun main(argv: Array<String>) {
     call(::constants)
     call(::open)
     call(::close)
+    call(::read)
     call(::unlink)
     call(::access)
     call(::chmod)
@@ -40,11 +44,13 @@ fun main(argv: Array<String>) {
     call(::lchown)
     call(::stats)
     call(::lstat)
+    call(::fstat)
     call(::stat)
     call(::link)
     call(::symlink)
     call(::mkdir)
     call(::readdir)
+    call(::readFile)
   }
 
   fun launch(block: suspend () -> Unit) {
