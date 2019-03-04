@@ -1,5 +1,6 @@
 import datkt.fs.test.constants
 import datkt.fs.test.writeFile
+import datkt.fs.test.copyFile
 import datkt.fs.test.readFile
 import datkt.fs.test.readdir
 import datkt.fs.test.symlink
@@ -55,6 +56,7 @@ fun main(argv: Array<String>) {
     call(::readdir)
     call(::readFile)
     call(::writeFile)
+    call(::copyFile)
   }
 
   fun launch(block: suspend () -> Unit) {
