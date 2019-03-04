@@ -6,6 +6,7 @@ import datkt.fs.test.realpath
 import datkt.fs.test.readlink
 import datkt.fs.test.readdir
 import datkt.fs.test.symlink
+import datkt.fs.test.rename
 import datkt.fs.test.access
 import datkt.fs.test.lchown
 import datkt.fs.test.unlink
@@ -61,6 +62,7 @@ fun main(argv: Array<String>) {
     call(::copyFile)
     call(::realpath)
     call(::readlink)
+    call(::rename)
   }
 
   fun launch(block: suspend () -> Unit) {
