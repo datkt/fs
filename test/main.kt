@@ -14,6 +14,7 @@ import datkt.fs.test.chown
 import datkt.fs.test.close
 import datkt.fs.test.chmod
 import datkt.fs.test.mkdir
+import datkt.fs.test.rmdir
 import datkt.fs.test.write
 import datkt.fs.test.fstat
 import datkt.fs.test.lstat
@@ -56,6 +57,7 @@ fun main(argv: Array<String>) {
     call(::link)
     call(::symlink)
     call(::mkdir)
+    call(::rmdir)
     call(::readdir)
     call(::readFile)
     call(::writeFile)

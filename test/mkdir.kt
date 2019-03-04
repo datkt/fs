@@ -2,7 +2,7 @@ package datkt.fs.test
 
 import datkt.tape.test
 
-private const val DIRECTORY = "test.kexe.directory"
+private const val DIRECTORY = "tmp/test-mkdir-directory"
 
 fun mkdir(argv: Array<String>) {
   test("mkdir(path, mode, callback)") { t ->
