@@ -1,3 +1,5 @@
 #!/bin/bash
 
-konanc *.kt $(konanc-config -lr lib.kc) -p library -o fs
+cmd="konanc *.kt $(konanc-config -lr lib.kc) -p library -o fs"
+echo $cmd
+eval $cmd

@@ -1,3 +1,5 @@
 #!/bin/bash
 
-cinterop -def constants.def -o constants -compilerOpts "$(konanc-config @datkt/uv --cflags)"
+cmd="cinterop -def constants.def -o constants -compilerOpts '$(konanc-config @datkt/uv --cflags)'"
+echo $cmd
+eval $cmd
