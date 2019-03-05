@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cinterop -def constants.def -o constants -compilerOpts "$(konanc-config @datkt/uv --cflags)"
