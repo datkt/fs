@@ -1,4 +1,4 @@
-compilerOpts = -I. -I node_modules/@datkt/uv/include
+compilerOpts = -I. -I ./node_modules/@datkt/uv/include
 headers = constants.h
 headerFilter = constants.h
 package = datkt.fs.constants
