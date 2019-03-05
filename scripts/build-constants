@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cmd="cinterop -def constants.def -o constants -compilerOpts '-I $PWD $(konanc-config @datkt/uv --cflags)'"
+cmd="cinterop -def constants.def -o constants -compilerOpts '$(konanc-config @datkt/uv --cflags)' -compilerOpts '-I .'"
 echo $cmd
 eval $cmd

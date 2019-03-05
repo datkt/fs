@@ -1,2 +1,2 @@
 require[] = "@datkt/uv"
-library[] = "./constants.klib"
+library[] = "constants.klib"

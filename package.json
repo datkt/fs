@@ -7,7 +7,7 @@
     "build-constants": "./scripts/build-constants",
     "build-library": "./scripts/build-library",
     "postinstall": "npm run build",
-    "test": "rm -rf test.kexe* tmp/ && mkdir tmp/ && konanc test/ $(konanc-config -clr test.kc) -o test.kexe && ./test.kexe $(id -u) $(id -G | awk '{print $2}')"
+    "test": "rm -rf test.kexe* tmp/ && mkdir tmp/ && konanc test/ $(konanc-config -lr test.kc) -o test.kexe && ./test.kexe $(id -u) $(id -G | awk '{print $2}')"
   },
   "keywords": [
     "datkt",
@@ -21,7 +21,7 @@
   "author": "Joseph Werle <werle@littlstar.com>",
   "license": "MIT",
   "dependencies": {
-    "@datkt/uv": "^0.5.4"
+    "@datkt/uv": "^0.5.6"
   },
   "devDependencies": {
     "@datkt/tape": "^0.6.1"
