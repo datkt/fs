@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cmd="konanc $(konanc-config -lr lib.kc) -p library -o fs $(ls $PWD/*.kt | sed 's/@/\\@/g')"
+cmd="konanc $(konanc-config -lr lib.kc) -p library -o fs $PWD/*.kt"
 echo $cmd
 eval $cmd
