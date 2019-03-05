@@ -1,4 +1,3 @@
-compilerOpts = -I.
 headers = constants.h
 headerFilter = constants.h
 package = datkt.fs.constants
