@@ -1,4 +1,5 @@
 import datkt.fs.test.constants
+import datkt.fs.test.ftruncate
 import datkt.fs.test.writeFile
 import datkt.fs.test.copyFile
 import datkt.fs.test.readFile
@@ -41,30 +42,35 @@ fun main(argv: Array<String>) {
 
   suspend fun run() {
     call(::constants)
+    call(::stats)
+
     call(::open)
     call(::close)
     call(::read)
     call(::write)
     call(::unlink)
     call(::access)
+    call(::stat)
     call(::chmod)
     call(::chown)
-    call(::lchown)
-    call(::stats)
-    call(::lstat)
-    call(::fstat)
-    call(::stat)
     call(::link)
     call(::symlink)
     call(::mkdir)
     call(::rmdir)
     call(::readdir)
-    call(::readFile)
-    call(::writeFile)
-    call(::copyFile)
     call(::realpath)
     call(::readlink)
     call(::rename)
+
+    call(::ftruncate)
+
+    call(::lchown)
+    call(::lstat)
+    call(::fstat)
+
+    call(::readFile)
+    call(::writeFile)
+    call(::copyFile)
   }
 
   fun launch(block: suspend () -> Unit) {

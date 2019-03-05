@@ -3,7 +3,7 @@ package datkt.fs.test
 import datkt.tape.test
 
 private const val FILENAME = "test.kexe"
-private const val LINK = "test.kexe.symlink"
+private const val LINK = "tmp/symlink-test.kexe"
 
 fun symlink(argv: Array<String>) {
   var uid: Int = 0

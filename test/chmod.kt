@@ -2,7 +2,7 @@ package datkt.fs.test
 
 import datkt.tape.test
 
-private const val FILENAME = "test.kexe"
+private const val FILENAME = "test/fixtures/file.txt"
 
 fun chmod(argv: Array<String>) {
   test("chmod(path, mode, callback") { t ->

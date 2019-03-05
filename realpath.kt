@@ -28,7 +28,7 @@ private fun onrealpath(req: CPointer<uv_fs_t>?) {
       val bytes: CPointer<ByteVar> = ptr as CPointer<ByteVar>
       val string = bytes.toKString()
       val byteArray = string.toUtf8()
-      uv.done(err, uv?.fs?.ptr as ByteArray)
+      uv.done(err, byteArray)
     }
 
     uv.cleanup()

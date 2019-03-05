@@ -3,7 +3,7 @@ package datkt.fs.test
 import datkt.tape.test
 
 private const val FILENAME = "test.kexe"
-private const val LINK = "test.kexe.link.lchown"
+private const val LINK = "tmp/lchown-link-test.kexe"
 
 fun lchown(argv: Array<String>) {
   var uid: Int = 0

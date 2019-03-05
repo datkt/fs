@@ -21,7 +21,12 @@ fun readFile(path: String, opts: ReadFileOptions, callback: Callback) {
     } else if (null != stats && fd > -1) {
       val size = stats.size.toInt()
       buffer = ByteArray(size)
-      read(fd, buffer, 0, size, 0, callback)
+
+      if (size > 0) {
+        read(fd, buffer, 0, size, 0, callback)
+      } else {
+        callback(null, buffer)
+      }
     }
   }
 

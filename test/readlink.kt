@@ -5,7 +5,7 @@ import datkt.tape.test
 fun readlink(argv: Array<String>) {
   test("readlink(path[, opts], callback)") { t ->
     val filename = "test.kexe"
-    val symlink = "somelink"
+    val symlink = "tmp/somelink"
     datkt.fs.symlink(filename, symlink) { err ->
       t.error(err)
       datkt.fs.readlink(symlink) { err, path ->
