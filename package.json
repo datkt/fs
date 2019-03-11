@@ -21,7 +21,7 @@
   "author": "Joseph Werle <werle@littlstar.com>",
   "license": "MIT",
   "dependencies": {
-    "@datkt/uv": "^0.5.10"
+    "@datkt/uv": "^0.5.11"
   },
   "devDependencies": {
     "@datkt/tape": "^0.6.1"
